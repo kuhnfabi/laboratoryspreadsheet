@@ -1,0 +1,67 @@
+Before first usage
+-----------------------
+1. Install Anaconda ( https://www.anaconda.com/ )
+2. Open command prompt (e.g. Anaconda Powershell Prompt) and execute the following steps:
+	a. Create virtual environment with this command:
+		conda create -n LABENV python=3.7 anaconda
+	b. Install required packages with this pip command:
+		pip install -r 
+3.../laboratoryspreadsheet/labspreadsheet
+		alternative: pip install numpy==1.16.5
+					pip install pandas==0.25.1
+					pip install openpyxl==3.0.0
+
+
+Change meta data
+-----------------------
+Open ..\labspreadsheet\production\meta\MetaData.xlsx
+Add/delete projects under "file"
+Add/delete experimental sites under "site"
+Add/delete measurable variable under "variable"
+
+
+
+Run python script
+---------------------
+Connect to Eawag intranet (via VPN or WLAN at Eawag), if possible run scripts when no one else is working (e.g., evening, weekend)
+
+open anaconda prompt
+
+activate LABENV
+
+cd ..\laboratoryspreadsheet\labspreadsheet #navigate to your folder
+
+python ScriptA_CopyFromRemote.py #makes backup from all the files in archive
+python ScriptB_CreateNewSpreadSheets.py #creates new files
+pyton ScriptC_CopyToRemote.py #add new files to Q folder
+
+go to the LabSample.xlsx file
+(add/delet people. Move inactive tabs to the back) #Sylvia usually does that because she has a better overview
+klick on"überprüfen" -> "Arbeitsmappe freigeben"
+Tick "Bearbeiten von mehreren Benutzer zur selben Zeit..."
+
+PW excel: "SuperDaten"
+PW = 'openpyxl'
+
+
+
+For every new year
+---------------------
+
+Copy all project in the MetaData.xlsx under "file"
+Change year
+Run python ScriptA_CopyFromRemote.py
+Go to ..\labspreadsheet\production\local_input
+Copy file LabSamples20XX.xlsx (e.g."LabSamples2021.xlsx") and rename to new year (e.g. "LabSamples2022.xlsx")
+Run python ScriptB_CreateNewSpreadSheets.py
+Run pyton ScriptC_CopyToRemote.py
+
+
+More information
+---------------------
+https://gitlab.com/krisvillez/laboratoryspreadsheet
+
+Questions
+---------------------
+Kris Villez, villezk@ornl.gov, creator
+Valentin Faust, valentin.faust@eawag.ch 079 368 11 73, last in charge

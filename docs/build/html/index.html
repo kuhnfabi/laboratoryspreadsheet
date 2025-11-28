@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>LabSpreadSheet - Documentation &#8212; LabSpreadSheet 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="labspreadsheet-documentation">
+<h1>LabSpreadSheet - Documentation<a class="headerlink" href="#labspreadsheet-documentation" title="Permalink to this headline">¶</a></h1>
+<p><em>Creating laboratory spreadsheets</em></p>
+<span class="target" id="module-labspreadsheet.tools"></span><dl class="function">
+<dt id="labspreadsheet.tools.AddColumnAnalysis">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">AddColumnAnalysis</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>nCol</em>, <em>nRowCorner</em>, <em>nRowHead</em>, <em>nRowContent</em>, <em>iColDateSample</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.AddColumnAnalysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.AddColumnAnalysis" title="labspreadsheet.tools.AddColumnAnalysis"><code class="xref py py-func docutils literal notranslate"><span class="pre">AddColumnAnalysis()</span></code></a> is to update a sheet by adding columns indicating the completion of laboratory analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Input sheet</span></dt><dd></dd>
+<dt><strong>nCol</strong><span class="classifier">Number of columns on the left of the columns that will be added</span></dt><dd></dd>
+<dt><strong>nRowCorner</strong><span class="classifier">Number of rows used for project-specific information</span></dt><dd></dd>
+<dt><strong>nRowHead</strong><span class="classifier">Number of rows used as header</span></dt><dd></dd>
+<dt><strong>nRowContent</strong><span class="classifier">Number of rows available for sample meta-data and analytic results</span></dt><dd></dd>
+<dt><strong>iColDateSample</strong><span class="classifier">Column number for sample date (first column = 1)</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.AddColumnComment">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">AddColumnComment</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>nCol</em>, <em>nRowCorner</em>, <em>nRowHead</em>, <em>nRowContent</em>, <em>sColumn</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.AddColumnComment" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.AddColumnComment" title="labspreadsheet.tools.AddColumnComment"><code class="xref py py-func docutils literal notranslate"><span class="pre">AddColumnComment()</span></code></a> is to update a sheet by adding a column where unstructured comments or information is added.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Input sheet</span></dt><dd></dd>
+<dt><strong>nCol</strong><span class="classifier">Number of columns on the left of the columns that will be added</span></dt><dd></dd>
+<dt><strong>nRowCorner</strong><span class="classifier">Number of rows used for project-specific information</span></dt><dd></dd>
+<dt><strong>nRowHead</strong><span class="classifier">Number of rows used as header</span></dt><dd></dd>
+<dt><strong>nRowContent</strong><span class="classifier">Number of rows available for sample meta-data and analytic results</span></dt><dd></dd>
+<dt><strong>sColumn</strong><span class="classifier">String to place in header of added column</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.AddColumnExpected">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">AddColumnExpected</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>nCol</em>, <em>nRowCorner</em>, <em>nRowHead</em>, <em>nRowContent</em>, <em>dfVAR</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.AddColumnExpected" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.AddColumnExpected" title="labspreadsheet.tools.AddColumnExpected"><code class="xref py py-func docutils literal notranslate"><span class="pre">AddColumnExpected()</span></code></a> is to update a sheet by adding columns to enter the expected measured values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Input sheet</span></dt><dd></dd>
+<dt><strong>nCol</strong><span class="classifier">Number of columns on the left of the columns that will be added</span></dt><dd></dd>
+<dt><strong>nRowCorner</strong><span class="classifier">Number of rows used for project-specific information</span></dt><dd></dd>
+<dt><strong>nRowHead</strong><span class="classifier">Number of rows used as header</span></dt><dd></dd>
+<dt><strong>nRowContent</strong><span class="classifier">Number of rows available for sample meta-data and analytic results</span></dt><dd></dd>
+<dt><strong>dfVAR</strong><span class="classifier">pandas dataframe specifying the meta-data for the measured variables</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.AddColumnID">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">AddColumnID</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>nRowCorner</em>, <em>nRowHead</em>, <em>nRowContent</em>, <em>lstID</em>, <em>strYear</em>, <em>iNumColComplete</em>, <em>xSiteOmitted</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.AddColumnID" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.AddColumnID" title="labspreadsheet.tools.AddColumnID"><code class="xref py py-func docutils literal notranslate"><span class="pre">AddColumnID()</span></code></a> is to update a sheet by adding columns indicating the project ID and the sample number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Input sheet</span></dt><dd></dd>
+<dt><strong>nCol</strong><span class="classifier">Number of columns on the left of the columns that will be added</span></dt><dd></dd>
+<dt><strong>nRowCorner</strong><span class="classifier">Number of rows used for project-specific information</span></dt><dd></dd>
+<dt><strong>nRowHead</strong><span class="classifier">Number of rows used as header</span></dt><dd></dd>
+<dt><strong>nRowContent</strong><span class="classifier">Number of rows available for sample meta-data and analytic results</span></dt><dd></dd>
+<dt><strong>lstID: List of available project IDs</strong></dt><dd></dd>
+<dt><strong>strYear: String describing the year for this sheet</strong></dt><dd></dd>
+<dt><strong>iNumColComplete: The number of columns, starting from the very left of the sheet, that must be filled in for an entry to be considered complete</strong></dt><dd></dd>
+<dt><strong>xRequired</strong><span class="classifier">Boolean indicating whether site columns are required or not</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.AddColumnMeasurement">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">AddColumnMeasurement</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>nCol</em>, <em>nRowCorner</em>, <em>nRowHead</em>, <em>nRowContent</em>, <em>dfVAR</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.AddColumnMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.AddColumnMeasurement" title="labspreadsheet.tools.AddColumnMeasurement"><code class="xref py py-func docutils literal notranslate"><span class="pre">AddColumnMeasurement()</span></code></a> is to update a sheet by adding columns detailing the laboratory analysis and the resulting value. Per measured variable, four columns are added, in this order: (a) final value, (b) analytic method, (c) applied filter during analysis, and (d) applied dilution during analysis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Input sheet</span></dt><dd></dd>
+<dt><strong>nCol</strong><span class="classifier">Number of columns on the left of the columns that will be added</span></dt><dd></dd>
+<dt><strong>nRowCorner</strong><span class="classifier">Number of rows used for project-specific information</span></dt><dd></dd>
+<dt><strong>nRowHead</strong><span class="classifier">Number of rows used as header</span></dt><dd></dd>
+<dt><strong>nRowContent</strong><span class="classifier">Number of rows available for sample meta-data and analytic results</span></dt><dd></dd>
+<dt><strong>dfVAR</strong><span class="classifier">pandas dataframe specifying the meta-data for the measured variables</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.AddColumnSample">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">AddColumnSample</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>nCol</em>, <em>nRowCorner</em>, <em>nRowHead</em>, <em>nRowContent</em>, <em>lstSampleMethod</em>, <em>lstSampleFilter</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.AddColumnSample" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.AddColumnSample" title="labspreadsheet.tools.AddColumnSample"><code class="xref py py-func docutils literal notranslate"><span class="pre">AddColumnSample()</span></code></a> is to update a sheet by adding columns for all meta-data describing a laboratory sample, in this order: (a) date, (b) time, (c) sampling method, (d) applied filter, (e) applied dilution, (f) staff member</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Input sheet</span></dt><dd></dd>
+<dt><strong>nCol</strong><span class="classifier">Number of columns on the left of the columns that will be added</span></dt><dd></dd>
+<dt><strong>nRowCorner</strong><span class="classifier">Number of rows used for project-specific information</span></dt><dd></dd>
+<dt><strong>nRowHead</strong><span class="classifier">Number of rows used as header</span></dt><dd></dd>
+<dt><strong>nRowContent</strong><span class="classifier">Number of rows available for sample meta-data and analytic results</span></dt><dd></dd>
+<dt><strong>lstSampleMethod</strong><span class="classifier">list of available sampling methods</span></dt><dd></dd>
+<dt><strong>lstSampleFilter</strong><span class="classifier">list of available filters</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.AddColumnSite">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">AddColumnSite</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>nCol</em>, <em>nRowCorner</em>, <em>nRowHead</em>, <em>nRowContent</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.AddColumnSite" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.AddColumnSite" title="labspreadsheet.tools.AddColumnSite"><code class="xref py py-func docutils literal notranslate"><span class="pre">AddColumnSite()</span></code></a> is to update a sheet by adding columns indicating the sampling location (site). A site is specified by four levels of granularity, in this order: (a) room, (b) area, (c) setup, (d) component</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Input sheet</span></dt><dd></dd>
+<dt><strong>nCol</strong><span class="classifier">Number of columns on the left of the columns that will be added</span></dt><dd></dd>
+<dt><strong>nRowCorner</strong><span class="classifier">Number of rows used for project-specific information</span></dt><dd></dd>
+<dt><strong>nRowHead</strong><span class="classifier">Number of rows used as header</span></dt><dd></dd>
+<dt><strong>nRowContent</strong><span class="classifier">Number of rows available for sample meta-data and analytic results</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.AddCorner">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">AddCorner</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>ProjectInfo</em>, <em>xSample</em>, <em>filename</em>, <em>filenameAdd</em>, <em>folder</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.AddCorner" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.AddCorner" title="labspreadsheet.tools.AddCorner"><code class="xref py py-func docutils literal notranslate"><span class="pre">AddCorner()</span></code></a> is to update a sheet by adding a corner section which includes the project meta-data and links to related files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Input sheet (assumed blank)</span></dt><dd></dd>
+<dt><strong>ProjectInfo</strong><span class="classifier">dictionary specifying project meta-data</span></dt><dd></dd>
+<dt><strong>xSample</strong><span class="classifier">boolean indicating whether the input sheet is a sample sheet (True) or a result sheet (False)</span></dt><dd></dd>
+<dt><strong>filename</strong><span class="classifier">sample/result file for which a hyperlink is provided</span></dt><dd></dd>
+<dt><strong>filenameAdd</strong><span class="classifier">second sample/result file for which a hyperlink is provided</span></dt><dd></dd>
+<dt><strong>folder</strong><span class="classifier">folder where file “filename” is located</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.AddStyles">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">AddStyles</code><span class="sig-paren">(</span><em>wb</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.AddStyles" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.AddStyles" title="labspreadsheet.tools.AddStyles"><code class="xref py py-func docutils literal notranslate"><span class="pre">AddStyles()</span></code></a> is to update a workbook by adding format styles</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>wb</strong><span class="classifier">Input workbook</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>wb</strong><span class="classifier">Updated workbook</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.AddTableSite">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">AddTableSite</code><span class="sig-paren">(</span><em>wb</em>, <em>*</em>, <em>dfSITE</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.AddTableSite" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.AddTableSite" title="labspreadsheet.tools.AddTableSite"><code class="xref py py-func docutils literal notranslate"><span class="pre">AddTableSite()</span></code></a> is to update a workbook by adding sheets specifying the available site specifications. These are used to program the dependent drop-down menus for site specification without resorting to visual basic (by design choice) or array formulas (as this requires manual entry of Ctrl-Alt-Shift).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>wb</strong><span class="classifier">Input workbook</span></dt><dd></dd>
+<dt><strong>dfSITE</strong><span class="classifier">pandas dataframe  specifying the available sampling sites</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>wb</strong><span class="classifier">Updated workbook</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.ApplyStyles">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">ApplyStyles</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>c1</em>, <em>c2</em>, <em>r1</em>, <em>r2</em>, <em>addon</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.ApplyStyles" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.ApplyStyles" title="labspreadsheet.tools.ApplyStyles"><code class="xref py py-func docutils literal notranslate"><span class="pre">ApplyStyles()</span></code></a> is to update a sheet by applying format styles to a range of cells</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>ws</strong><span class="classifier">Input sheet</span></dt><dd></dd>
+<dt><strong>c1</strong><span class="classifier">First column</span></dt><dd></dd>
+<dt><strong>c2</strong><span class="classifier">Last column</span></dt><dd></dd>
+<dt><strong>r1</strong><span class="classifier">First row</span></dt><dd></dd>
+<dt><strong>r2</strong><span class="classifier">Last row</span></dt><dd></dd>
+<dt><strong>addon</strong><span class="classifier">String to append to format style specification (e.g., <cite>date</cite> and <cite>time</cite>)</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.ConstructPersonLinks">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">ConstructPersonLinks</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>folder</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.ConstructPersonLinks" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.ConstructPersonLinks" title="labspreadsheet.tools.ConstructPersonLinks"><code class="xref py py-func docutils literal notranslate"><span class="pre">ConstructPersonLinks()</span></code></a> is to update a sheet by adding links to entries in a sheet with name <cite>person</cite> in another file</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>ws</strong><span class="classifier">Input sheet (assumed blank)</span></dt><dd></dd>
+<dt><strong>folder</strong><span class="classifier">folder where target file is located</span></dt><dd></dd>
+<dt><strong>filename</strong><span class="classifier">filename of file with sheet <cite>person</cite> managed by laboratory staff</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.ConstructResultSheet">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">ConstructResultSheet</code><span class="sig-paren">(</span><em>wsRes</em>, <em>*</em>, <em>ProjectInfo</em>, <em>folder</em>, <em>filename</em>, <em>filenameExtra</em>, <em>dfVAR</em>, <em>xLab</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.ConstructResultSheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.ConstructResultSheet" title="labspreadsheet.tools.ConstructResultSheet"><code class="xref py py-func docutils literal notranslate"><span class="pre">ConstructResultSheet()</span></code></a> is to update a sheet by specifying all columns necessary to describe all analytical results and the methods used to obtain them</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>wsRes</strong><span class="classifier">Input sheet (assumed blank)</span></dt><dd></dd>
+<dt><strong>ProjectInfo</strong><span class="classifier">dictionary specifying project meta-data</span></dt><dd></dd>
+<dt><strong>folder</strong><span class="classifier">folder name for file ‘filename’ (string)</span></dt><dd></dd>
+<dt><strong>filename</strong><span class="classifier">sample filename</span></dt><dd></dd>
+<dt><strong>filenameExtra</strong><span class="classifier">second sample filename</span></dt><dd></dd>
+<dt><strong>dfVAR</strong><span class="classifier">pandas dataframe specifying the meta-data for the measured variables</span></dt><dd></dd>
+<dt><strong>xLab</strong><span class="classifier">boolean indicating whether the specified sheet is for samples analyzed by the lab staff (True) or project staff (False)</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>wsRes</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.ConstructSampleSheet">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">ConstructSampleSheet</code><span class="sig-paren">(</span><em>wsSam</em>, <em>*</em>, <em>ProjectInfo</em>, <em>filename</em>, <em>filenameExtra</em>, <em>lstSampleMethod</em>, <em>lstSampleFilter</em>, <em>dfVAR</em>, <em>xLab</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.ConstructSampleSheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.ConstructSampleSheet" title="labspreadsheet.tools.ConstructSampleSheet"><code class="xref py py-func docutils literal notranslate"><span class="pre">ConstructSampleSheet()</span></code></a> is to update a sheet by specifying all columns necessary to describe all meta-data describing a laboratory sample</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>wsSam</strong><span class="classifier">Input sheet (assumed blank)</span></dt><dd></dd>
+<dt><strong>ProjectInfo</strong><span class="classifier">dictionary specifying project meta-data</span></dt><dd></dd>
+<dt><strong>filename</strong><span class="classifier">result filename</span></dt><dd></dd>
+<dt><strong>filenameExtra</strong><span class="classifier">second result filename</span></dt><dd></dd>
+<dt><strong>lstSampleMethod</strong><span class="classifier">list of sampling methods</span></dt><dd></dd>
+<dt><strong>lstSampleFilter</strong><span class="classifier">list of filters available at sampling</span></dt><dd></dd>
+<dt><strong>dfVAR</strong><span class="classifier">pandas dataframe specifying the meta-data for the measured variables</span></dt><dd></dd>
+<dt><strong>xLab</strong><span class="classifier">boolean indicating whether the specified sheet is for samples analyzed by the lab staff (True) or project staff (False)</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>wsSam</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.CopyData">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">CopyData</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>folderInput</em>, <em>filename</em>, <em>strSheetName</em>, <em>row1</em>, <em>xCopyStyle</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.CopyData" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.CopyData" title="labspreadsheet.tools.CopyData"><code class="xref py py-func docutils literal notranslate"><span class="pre">CopyData()</span></code></a> is to make copies of existing data into a new sheet, including some style elements if wanted</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Input sheet (assumed blank)</span></dt><dd></dd>
+<dt><strong>folderInput</strong><span class="classifier">folder that contains file with source</span></dt><dd></dd>
+<dt><strong>filename</strong><span class="classifier">name of file with source data</span></dt><dd></dd>
+<dt><strong>strSheetName</strong><span class="classifier">sheet name of sheet with source data</span></dt><dd></dd>
+<dt><strong>row1</strong><span class="classifier">first row that should be copied (count starts at 1)</span></dt><dd></dd>
+<dt><strong>xCopyStyle</strong><span class="classifier">boolean indicating whether style elements should be copied (font style, cell overline and underline)</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.GetMetaData">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">GetMetaData</code><span class="sig-paren">(</span><em>metafile</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.GetMetaData" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.GetMetaData" title="labspreadsheet.tools.GetMetaData"><code class="xref py py-func docutils literal notranslate"><span class="pre">GetMetaData()</span></code></a> is to get the meta-data describing the Excel files that should be produced</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>metafile</strong><span class="classifier">Path to the file containing the meta-data describing the Excel files that should be produced</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>dfSITE, dfVAR, lstSampleMethod, lstSampleFilter</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="labspreadsheet.tools.Protect">
+<code class="descclassname">labspreadsheet.tools.</code><code class="descname">Protect</code><span class="sig-paren">(</span><em>ws</em>, <em>*</em>, <em>nRowCorner</em>, <em>nRowHead</em>, <em>nCol</em><span class="sig-paren">)</span><a class="headerlink" href="#labspreadsheet.tools.Protect" title="Permalink to this definition">¶</a></dt>
+<dd><p>The purpose of <a class="reference internal" href="#labspreadsheet.tools.Protect" title="labspreadsheet.tools.Protect"><code class="xref py py-func docutils literal notranslate"><span class="pre">Protect()</span></code></a> is to update a sheet by protecting its contents</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Input sheet</span></dt><dd></dd>
+<dt><strong>nRowCorner</strong><span class="classifier">Number of rows used for project-specific information</span></dt><dd></dd>
+<dt><strong>nRowHead</strong><span class="classifier">Number of rows used as header</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ws</strong><span class="classifier">Updated sheet</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">LabSpreadSheet</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Kris Villez.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
