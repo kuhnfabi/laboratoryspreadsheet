@@ -216,10 +216,134 @@ def AddColumnComment(ws,*,nCol,nRowCorner,nRowHead,nRowContent,sColumn,xCheck):
     
     return ws, nCol
 
+# def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strSheet2):
+#     """AddColumnConcatID
+        
+#     The purpose of :py:func:`.AddColumnConcatID` is to add a column where the first two columns are concatenated. This column facilitates search across Excel sheets. Original implementation was to  automatically fill the columns Room/Area/Setup/Component/Date/Time in the results sheet
+        
+#     Parameters
+#     ----------
+#     ws : Input sheet
+#     nCol : Number of columns on the left of the columns that will be added
+#     nRowCorner : Number of rows used for project-specific information
+#     nRowHead : Number of rows used as header
+#     nRowContent : Number of rows available for sample meta-data and analytic results
+#     XXX
+    
+#     Returns
+#     -------
+#     ws : Updated sheet
+    
+#     """
+    
+#     # =======================================================
+#     # Columns: SampleIDconcat
+#     # =======================================================
+#     iColConcatID = nCol+1
+#     letterConcatID = pyxl.utils.get_column_letter(iColConcatID)
+#     iColConcatID_X = nCol+2
+#     letterConcatID_X = pyxl.utils.get_column_letter(iColConcatID_X)
+#     iColConcatID_Y = nCol+3
+#     letterConcatID_Y = pyxl.utils.get_column_letter(iColConcatID_Y)
+#     iColMatchX = nCol+4
+#     letterMatchX = pyxl.utils.get_column_letter(iColMatchX)
+#     iColMatchY = nCol+5
+#     letterMatchY = pyxl.utils.get_column_letter(iColMatchY)
+    
+#     # --------------------------------------
+#     # Header
+#     # --------------------------------------
+    
+#     iRow1 = nRowCorner+1
+#     ws.cell(column=iColConcatID, row=iRow1, value='ConcatID')
+#     if len(strSheet1)>0:
+#         ws.cell(column=iColConcatID_X, row=iRow1, value='ConcatID_X')
+#         ws.cell(column=iColMatchX, row=iRow1, value='MatchX')
+#     if len(strSheet2)>0:
+#         ws.cell(column=iColConcatID_Y, row=iRow1, value='ConcatID_Y')
+#         ws.cell(column=iColMatchY, row=iRow1, value='MatchY')
+    
+#     iRow2 = nRowCorner+2
+#     iRow3 = nRowCorner+3
+    
+#     # -------------------------------------------------------------------
+#     # Formatting - always yellow if cells are auto-filled
+#     # -------------------------------------------------------------------
+    
+#     if len(strSheet1)>0 or len(strSheet2)>0:
+#         for iCol in np.arange(0,8):
+#             letter = pyxl.utils.get_column_letter(iCol+3)
+#             cellrowInput = letter+str(nRowCorner+nRowHead+1)
+#             cellrangeApply = letter+str(nRowCorner+nRowHead+1)+':'+letter+str(nRowCorner+nRowHead+nRowContent)
+#             # This is a roundabout way to fill always with yellow, i.e. by using two rules: could not find a way to make this work with only one rule:
+#             ws.conditional_formatting.add(cellrangeApply,\
+#                                   pyxl.formatting.rule.FormulaRule(formula=['COUNTBLANK('+cellrowInput+')=1'],\
+#                                                                    fill=yellowFill)) 
+#             ws.conditional_formatting.add(cellrangeApply,\
+#                                   pyxl.formatting.rule.FormulaRule(formula=['COUNTBLANK('+cellrowInput+')=0'],\
+#                                                                    fill=yellowFill)) 
+#     # --------------------------------------
+#     # Content
+#     # --------------------------------------
+    
+#     iRowTop = nRowCorner+nRowHead+1
+#     iRowBottom = nRowCorner+nRowHead+nRowContent+1
+#     for iRow in np.arange(iRowTop,iRowBottom):
+#         cellref = letterConcatID+str(iRow)
+#         fConcat = '=TEXT(A'+str(iRow)+',"@") & TEXT(B'+str(iRow)+',"@")'
+#         ws[cellref] = fConcat
+#         if len(strSheet1)>0:
+#             cellrefX = letterConcatID_X+str(iRow)
+#             fConcat = '=TEXT(SamplesX!A'+str(iRow)+',"@") & TEXT(SamplesX!B'+str(iRow)+',"@")'
+#             ws[cellrefX] = fConcat
+#         if len(strSheet2)>0:
+#             cellrefY = letterConcatID_Y+str(iRow)
+#             fConcat = '=TEXT(SamplesY!A'+str(iRow)+',"@") & TEXT(SamplesY!B'+str(iRow)+',"@")'
+#             ws[cellrefY] = fConcat
+        
+#         celladdX = pyxl.utils.get_column_letter(iColMatchX)+str(iRow)
+#         celladdY = pyxl.utils.get_column_letter(iColMatchY)+str(iRow)
+        
+#         if len(strSheet1)>0:
+#             fMatch1 = '=MATCH('+cellref+','+letterConcatID_X+str(1)+':'+letterConcatID_X+str(iRowBottom)+',0)'
+#             ws[celladdX] = fMatch1
+#         if len(strSheet2)>0:
+#             fMatch2 = '=MATCH('+cellref+','+letterConcatID_Y+str(1)+':'+letterConcatID_Y+str(iRowBottom)+',0)'
+#             ws[celladdY] = fMatch2
+        
+#         if len(strSheet1)>0 or len(strSheet2)>0:
+#             for iCol in np.arange(0,6):
+#                 strCol = pyxl.utils.get_column_letter(iCol+3)
+#                 fInfo ='=IF(ISNUMBER('+celladdX+'),INDIRECT("SamplesX!'+strCol+'"&'+celladdX+'),IF(ISNUMBER('+celladdY+'),INDIRECT("SamplesY!'+strCol+'"&'+celladdY+'),""))'
+#                 celladdZ = strCol+str(iRow)
+#                 ws[celladdZ] = fInfo
+#             for iCol in np.arange(6,10):
+#                 strCol = pyxl.utils.get_column_letter(iCol+3)
+#                 #fInfo = '=IF(ISNUMBER('+celladdX+'),TEXT(INDIRECT("SamplesX!'+strCol+'"&'+celladdX+'),"@"),IF(ISNUMBER('+celladdY+'),TEXT(INDIRECT("SamplesY!'+strCol+'"&'+celladdY+'),"@"),""))'
+#                 fInfo = (
+#                     '=IF(ISNUMBER('+celladdX+'),'
+#                         'IF(INDIRECT("SamplesX!'+strCol+'"&'+celladdX+')="",'
+#                             '"",'
+#                             'TEXT(INDIRECT("SamplesX!'+strCol+'"&'+celladdX+'),"@")'
+#                         '),'
+#                         'IF(ISNUMBER('+celladdY+'),'
+#                             'IF(INDIRECT("SamplesY!'+strCol+'"&'+celladdY+')="",'
+#                                 '"",'
+#                                 'TEXT(INDIRECT("SamplesY!'+strCol+'"&'+celladdY+'),"@")'
+#                             '),'
+#                             '""'
+#                         ')'
+#                     ')'
+#                 )
+#                 celladdZ = strCol+str(iRow)
+#                 ws[celladdZ] = fInfo    
+
+#     return ws, nCol
+
 def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strSheet2):
     """AddColumnConcatID
         
-    The purpose of :py:func:`.AddColumnConcatID` is to add a column where the first two columns are concatenated. This column facilitates search across Excel sheets. Original implementation was to  automatically fill the columns Room/Area/Setup/Component/Date/Time in the results sheet
+    The purpose of :py:func:`. AddColumnConcatID` is to add a column where the first two columns are concatenated.  This channel facilitates search across Excel sheets.  Original implementation was to  automatically fill the columns Room/Area/Setup/Component/Date/Time in the results sheet
         
     Parameters
     ----------
@@ -228,7 +352,8 @@ def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strShe
     nRowCorner : Number of rows used for project-specific information
     nRowHead : Number of rows used as header
     nRowContent : Number of rows available for sample meta-data and analytic results
-    XXX
+    strSheet1 : External reference to Samples sheet (source for comments)
+    strSheet2 : External reference to additional sheet
     
     Returns
     -------
@@ -242,7 +367,7 @@ def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strShe
     iColConcatID = nCol+1
     letterConcatID = pyxl.utils.get_column_letter(iColConcatID)
     iColConcatID_X = nCol+2
-    letterConcatID_X = pyxl.utils.get_column_letter(iColConcatID_X)
+    letterConcatID_X = pyxl.utils. get_column_letter(iColConcatID_X)
     iColConcatID_Y = nCol+3
     letterConcatID_Y = pyxl.utils.get_column_letter(iColConcatID_Y)
     iColMatchX = nCol+4
@@ -271,16 +396,16 @@ def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strShe
     # -------------------------------------------------------------------
     
     if len(strSheet1)>0 or len(strSheet2)>0:
-        for iCol in np.arange(0,6):
+        for iCol in np.arange(0,8):
             letter = pyxl.utils.get_column_letter(iCol+3)
             cellrowInput = letter+str(nRowCorner+nRowHead+1)
             cellrangeApply = letter+str(nRowCorner+nRowHead+1)+':'+letter+str(nRowCorner+nRowHead+nRowContent)
             # This is a roundabout way to fill always with yellow, i.e. by using two rules: could not find a way to make this work with only one rule:
             ws.conditional_formatting.add(cellrangeApply,\
-                                  pyxl.formatting.rule.FormulaRule(formula=['COUNTBLANK('+cellrowInput+')=1'],\
+                                  pyxl. formatting.rule.FormulaRule(formula=['COUNTBLANK('+cellrowInput+')=1'],\
                                                                    fill=yellowFill)) 
             ws.conditional_formatting.add(cellrangeApply,\
-                                  pyxl.formatting.rule.FormulaRule(formula=['COUNTBLANK('+cellrowInput+')=0'],\
+                                  pyxl. formatting.rule.FormulaRule(formula=['COUNTBLANK('+cellrowInput+')=0'],\
                                                                    fill=yellowFill)) 
     # --------------------------------------
     # Content
@@ -290,15 +415,15 @@ def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strShe
     iRowBottom = nRowCorner+nRowHead+nRowContent+1
     for iRow in np.arange(iRowTop,iRowBottom):
         cellref = letterConcatID+str(iRow)
-        fConcat = '=CONCATENATE(A'+str(iRow)+',B'+str(iRow)+')'
+        fConcat = '=TEXT(A'+str(iRow)+',"@") & TEXT(B'+str(iRow)+',"@")'
         ws[cellref] = fConcat
         if len(strSheet1)>0:
             cellrefX = letterConcatID_X+str(iRow)
-            fConcat = '=CONCATENATE(SamplesX!A'+str(iRow)+',SamplesX!B'+str(iRow)+')'
+            fConcat = '=TEXT(SamplesX!A'+str(iRow)+',"@") & TEXT(SamplesX!B'+str(iRow)+',"@")'
             ws[cellrefX] = fConcat
         if len(strSheet2)>0:
             cellrefY = letterConcatID_Y+str(iRow)
-            fConcat = '=CONCATENATE(SamplesY!A'+str(iRow)+',SamplesY!B'+str(iRow)+')'
+            fConcat = '=TEXT(SamplesY!A'+str(iRow)+',"@") & TEXT(SamplesY!B'+str(iRow)+',"@")'
             ws[cellrefY] = fConcat
         
         celladdX = pyxl.utils.get_column_letter(iColMatchX)+str(iRow)
@@ -312,12 +437,34 @@ def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strShe
             ws[celladdY] = fMatch2
         
         if len(strSheet1)>0 or len(strSheet2)>0:
+            # Sync columns C-H (Room, Area, Setup, Component, Date, Time)
             for iCol in np.arange(0,6):
                 strCol = pyxl.utils.get_column_letter(iCol+3)
                 fInfo ='=IF(ISNUMBER('+celladdX+'),INDIRECT("SamplesX!'+strCol+'"&'+celladdX+'),IF(ISNUMBER('+celladdY+'),INDIRECT("SamplesY!'+strCol+'"&'+celladdY+'),""))'
                 celladdZ = strCol+str(iRow)
                 ws[celladdZ] = fInfo
-    
+            
+            # Sync comment columns I and J in Results sheet
+            # Pull from columns M and N in Samples sheet
+            # Use DIRECT external reference with INDEX instead of INDIRECT
+            comment_mappings = [
+                ('I', 'M'),  # Comment: Results column I <- Samples column M
+                ('J', 'N')   # Communication: Results column J <- Samples column N
+            ]
+            
+            for targetCol, sourceCol in comment_mappings:
+                # Use direct external reference with OFFSET to get the matched row
+                if len(strSheet1) > 0:
+                    # Build formula: =IF(ISNUMBER(matchcell), external_ref to matched row, "")
+                    #fInfo = '=IF(ISNUMBER('+celladdX+'),INDEX('+strSheet1+'!'+sourceCol+':'+sourceCol+','+celladdX+'),"")'
+                    indexFormula = 'INDEX('+strSheet1+'!'+sourceCol+':'+sourceCol+','+celladdX+')'
+                    fInfo = '=IF(ISNUMBER('+celladdX+'),IF('+indexFormula+'="","",'+indexFormula+'),"")'
+                    celladdZ = targetCol+str(iRow)
+                    ws[celladdZ] = fInfo
+                else:
+                    celladdZ = targetCol+str(iRow)
+                    ws[celladdZ] = ""
+
     return ws, nCol
     
 def AddColumnExpected(ws,*,nCol,nRowCorner,nRowHead,nRowContent,dfVAR):
@@ -1608,12 +1755,12 @@ def ConstructResultSheet(wsRes,*,ProjectInfo,folder,filename,filenameExtra,dfVAR
                                              xLink=True,\
                                              xOnlyDB=False)
     xSiteOmitted = (ProjectInfo.SiteIncluded=='False')
-    wsRes,nColRes = AddColumnComment(wsRes,\
-                               nCol=nColRes,\
-                               nRowCorner=nRowCorner,\
-                               nRowHead=nRowHead,\
-                               nRowContent=nRowContent,\
-                               sColumn='SampleInfo',xCheck=False)
+    #wsRes,nColRes = AddColumnComment(wsRes,\
+    #                           nCol=nColRes,\
+    #                           nRowCorner=nRowCorner,\
+    #                           nRowHead=nRowHead,\
+    #                           nRowContent=nRowContent,\
+    #                           sColumn='SampleInfo',xCheck=False)
     wsRes,nColRes = AddColumnComment(wsRes,\
                                nCol=nColRes,\
                                nRowCorner=nRowCorner,\
@@ -1625,7 +1772,7 @@ def ConstructResultSheet(wsRes,*,ProjectInfo,folder,filename,filenameExtra,dfVAR
                                nRowCorner=nRowCorner,\
                                nRowHead=nRowHead,\
                                nRowContent=nRowContent,\
-                               sColumn='Communication Lab',xCheck=False)
+                               sColumn='Communication Lab',xCheck=True)
     wsRes,nColRes = AddColumnMeasurement(wsRes,\
                               nCol=nColRes,\
                               nRowCorner=nRowCorner,\
@@ -1642,7 +1789,7 @@ def ConstructResultSheet(wsRes,*,ProjectInfo,folder,filename,filenameExtra,dfVAR
     else:
         strSheet2=""
         
-    wsSam,nColRes = AddColumnConcatID(wsRes,\
+    wsRes,nColRes = AddColumnConcatID(wsRes,\
                                       nCol=nColRes+1,\
                                       nRowCorner=nRowCorner,\
                                       nRowHead=nRowHead,\
@@ -1655,7 +1802,7 @@ def ConstructResultSheet(wsRes,*,ProjectInfo,folder,filename,filenameExtra,dfVAR
     # Protect columns with linked meta-data:
     nRow = wsRes.max_row
     for iRow in range(nRow-nRowCorner-nRowHead):
-        for iCol in range(6):
+        for iCol in range(8):           # Adjusted the range from 6 to 8, so the synchronized comment and communication lab columns are protected
             letter = pyxl.utils.get_column_letter(iCol+3)
             cell = wsRes[letter+str(nRowCorner+nRowHead+iRow+1)]
             cell.protection = pyxl.styles.Protection(locked=True)
@@ -1735,7 +1882,7 @@ def ConstructSampleSheet(wsSam,*,ProjectInfo,filename,filenameExtra,lstSampleMet
                                nRowCorner=nRowCorner,\
                                nRowHead=nRowHead,\
                                nRowContent=nRowContent,\
-                               sColumn='Communication Lab',xCheck=False)
+                               sColumn='Communication Lab',xCheck=True)
     wsSam,nColSam = AddColumnAnalysis(wsSam,\
                                       nCol=nColSam,\
                                       nRowCorner=nRowCorner,\
