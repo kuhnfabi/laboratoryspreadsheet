@@ -216,7 +216,7 @@ def AddColumnComment(ws,*,nCol,nRowCorner,nRowHead,nRowContent,sColumn,xCheck):
     
     return ws, nCol
 
-# def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strSheet2):
+# def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strSheet2):                 ===> OLD CODE BEFORE 16.12.2025
 #     """AddColumnConcatID
         
 #     The purpose of :py:func:`.AddColumnConcatID` is to add a column where the first two columns are concatenated. This column facilitates search across Excel sheets. Original implementation was to  automatically fill the columns Room/Area/Setup/Component/Date/Time in the results sheet
@@ -396,7 +396,7 @@ def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strShe
     # -------------------------------------------------------------------
     
     if len(strSheet1)>0 or len(strSheet2)>0:
-        for iCol in np.arange(0,8):
+        for iCol in np.arange(0,8): # The first 8 columns (C - J) to be synchronized (Site, Sample, Comment and Communication Lab) in the result file 
             letter = pyxl.utils.get_column_letter(iCol+3)
             cellrowInput = letter+str(nRowCorner+nRowHead+1)
             cellrangeApply = letter+str(nRowCorner+nRowHead+1)+':'+letter+str(nRowCorner+nRowHead+nRowContent)
@@ -448,15 +448,13 @@ def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strShe
             # Pull from columns M and N in Samples sheet
             # Use DIRECT external reference with INDEX instead of INDIRECT
             comment_mappings = [
-                ('I', 'M'),  # Comment: Results column I <- Samples column M
-                ('J', 'N')   # Communication: Results column J <- Samples column N
+                ('I', 'M'),  # Comment: LabSampleFile column M  -> ResultFile column I
+                ('J', 'N')   # Communication: LabSamplesFile column N -> ResultFile column J
             ]
             
             for targetCol, sourceCol in comment_mappings:
                 # Use direct external reference with OFFSET to get the matched row
                 if len(strSheet1) > 0:
-                    # Build formula: =IF(ISNUMBER(matchcell), external_ref to matched row, "")
-                    #fInfo = '=IF(ISNUMBER('+celladdX+'),INDEX('+strSheet1+'!'+sourceCol+':'+sourceCol+','+celladdX+'),"")'
                     indexFormula = 'INDEX('+strSheet1+'!'+sourceCol+':'+sourceCol+','+celladdX+')'
                     fInfo = '=IF(ISNUMBER('+celladdX+'),IF('+indexFormula+'="","",'+indexFormula+'),"")'
                     celladdZ = targetCol+str(iRow)
@@ -1802,7 +1800,7 @@ def ConstructResultSheet(wsRes,*,ProjectInfo,folder,filename,filenameExtra,dfVAR
     # Protect columns with linked meta-data:
     nRow = wsRes.max_row
     for iRow in range(nRow-nRowCorner-nRowHead):
-        for iCol in range(8):           # Adjusted the range from 6 to 8, so the synchronized comment and communication lab columns are protected
+        for iCol in range(8):           # Adjusted the range from 6 to 8, so the synchronized comment and communication lab columns are protected as well
             letter = pyxl.utils.get_column_letter(iCol+3)
             cell = wsRes[letter+str(nRowCorner+nRowHead+iRow+1)]
             cell.protection = pyxl.styles.Protection(locked=True)

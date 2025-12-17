@@ -43,7 +43,7 @@ years_available = np.zeros(len(years), dtype=bool)
 
 for i, year in enumerate(years):
     
-    if datetime.datetime.now().year<=np.float(year) :
+    if datetime.datetime.now().year<=np.float(year):
         folder_samples = folderCentral
     else:
         folder_samples = folderArchive
