@@ -410,58 +410,58 @@ def AddColumnConcatID(ws,*,nCol,nRowCorner,nRowHead,nRowContent,strSheet1,strShe
     # --------------------------------------
     # Content
     # --------------------------------------
-    
     iRowTop = nRowCorner+nRowHead+1
     iRowBottom = nRowCorner+nRowHead+nRowContent+1
-    for iRow in np.arange(iRowTop,iRowBottom):
+
+    for iRow in np.arange(iRowTop, iRowBottom):
         cellref = letterConcatID+str(iRow)
+    
+        # ConcatID: concatenate A and B of the current Results sheet row (unchanged)
         fConcat = '=TEXT(A'+str(iRow)+',"@") & TEXT(B'+str(iRow)+',"@")'
         ws[cellref] = fConcat
-        if len(strSheet1)>0:
+
+        # ConcatID_X: no longer row-locked — scan ALL of SamplesX column B for a match
+        # Instead of TEXT(SamplesX!A9,...) which hardcodes row 9,
+        # we find the row in SamplesX where column B matches our column B
+        if len(strSheet1) > 0:
             cellrefX = letterConcatID_X+str(iRow)
-            fConcat = '=TEXT(SamplesX!A'+str(iRow)+',"@") & TEXT(SamplesX!B'+str(iRow)+',"@")'
+            # Rebuild ConcatID_X by looking up: find row in SamplesX where B = our B
+            fConcat = ('=IFERROR(TEXT(INDEX(SamplesX!A:A,MATCH(B'+str(iRow)+',SamplesX!B:B,0)),"@")&TEXT(B'+str(iRow)+',"@"),"")')
             ws[cellrefX] = fConcat
-        if len(strSheet2)>0:
+
+        if len(strSheet2) > 0:
             cellrefY = letterConcatID_Y+str(iRow)
-            fConcat = '=TEXT(SamplesY!A'+str(iRow)+',"@") & TEXT(SamplesY!B'+str(iRow)+',"@")'
+            fConcat = ('=IFERROR(TEXT(INDEX(SamplesY!A:A,MATCH(B'+str(iRow)+',SamplesY!B:B,0)),"@")&TEXT(B'+str(iRow)+',"@"),"")')
             ws[cellrefY] = fConcat
-        
+
         celladdX = pyxl.utils.get_column_letter(iColMatchX)+str(iRow)
         celladdY = pyxl.utils.get_column_letter(iColMatchY)+str(iRow)
-        
-        if len(strSheet1)>0:
-            fMatch1 = '=MATCH('+cellref+','+letterConcatID_X+str(1)+':'+letterConcatID_X+str(iRowBottom)+',0)'
+
+        # MatchX: find the row in SamplesX where column B matches our column B
+        # This gives the absolute row number in SamplesX to use with INDEX
+        if len(strSheet1) > 0:
+            fMatch1 = ('=IFERROR(MATCH(B'+str(iRow)+',SamplesX!B:B,0),NA())')
             ws[celladdX] = fMatch1
-        if len(strSheet2)>0:
-            fMatch2 = '=MATCH('+cellref+','+letterConcatID_Y+str(1)+':'+letterConcatID_Y+str(iRowBottom)+',0)'
+        if len(strSheet2) > 0:
+            fMatch2 = ('=IFERROR(MATCH(B'+str(iRow)+',SamplesY!B:B,0),NA())')
             ws[celladdY] = fMatch2
-        
-        if len(strSheet1)>0 or len(strSheet2)>0:
-            # Sync columns C-H (Room, Area, Setup, Component, Date, Time)
-            for iCol in np.arange(0,6):
+
+        if len(strSheet1) > 0 or len(strSheet2) > 0:
+            # Sync columns C-H using the row number found by MATCH
+            for iCol in np.arange(0, 6):
                 strCol = pyxl.utils.get_column_letter(iCol+3)
-                fInfo ='=IF(ISNUMBER('+celladdX+'),INDIRECT("SamplesX!'+strCol+'"&'+celladdX+'),IF(ISNUMBER('+celladdY+'),INDIRECT("SamplesY!'+strCol+'"&'+celladdY+'),""))'
-                celladdZ = strCol+str(iRow)
-                ws[celladdZ] = fInfo
-            
-            # Sync comment columns I and J in Results sheet
-            # Pull from columns M and N in Samples sheet
-            # Use DIRECT external reference with INDEX instead of INDIRECT
-            comment_mappings = [
-                ('I', 'M'),  # Comment: LabSampleFile column M  -> ResultFile column I
-                ('J', 'N')   # Communication: LabSamplesFile column N -> ResultFile column J
-            ]
-            
+                fInfo = ('=IF(ISNUMBER('+celladdX+'),INDIRECT("SamplesX!'+strCol+'"&'+celladdX+')'+',IF(ISNUMBER('+celladdY+'),INDIRECT("SamplesY!'+strCol+'"&'+celladdY+'),""))')
+                ws[strCol+str(iRow)] = fInfo
+
+            # Sync comment columns I and J
+            comment_mappings = [('I', 'M'), ('J', 'N')]
             for targetCol, sourceCol in comment_mappings:
-                # Use direct external reference with OFFSET to get the matched row
                 if len(strSheet1) > 0:
-                    indexFormula = 'INDEX('+strSheet1+'!'+sourceCol+':'+sourceCol+','+celladdX+')'
+                    indexFormula = 'INDEX(SamplesX!'+sourceCol+':'+sourceCol+','+celladdX+')'
                     fInfo = '=IF(ISNUMBER('+celladdX+'),IF('+indexFormula+'="","",'+indexFormula+'),"")'
-                    celladdZ = targetCol+str(iRow)
-                    ws[celladdZ] = fInfo
+                    ws[targetCol+str(iRow)] = fInfo
                 else:
-                    celladdZ = targetCol+str(iRow)
-                    ws[celladdZ] = ""
+                    ws[targetCol+str(iRow)] = ""
 
     return ws, nCol
     
@@ -1650,7 +1650,7 @@ def ConstructLinks(ws,*,strFolder,strFilename,strSheet,nRow,nCol):
         for iCol in range(nCol):
             strCell = pyxl.utils.get_column_letter(iCol+1)+str(iRow+1)
             link = "'"+strFolder+"\["+strFilename+"]"+strSheet+"'!"+strCell
-            ws[strCell]= '=IF(ISBLANK('+link+')," ",'+link+')'
+            ws[strCell]= '=IF(ISBLANK('+link+'),"",'+link+')'                   #####
     
     return ws
     
@@ -1788,12 +1788,12 @@ def ConstructResultSheet(wsRes,*,ProjectInfo,folder,filename,filenameExtra,dfVAR
         strSheet2=""
         
     wsRes,nColRes = AddColumnConcatID(wsRes,\
-                                      nCol=nColRes+1,\
+                                      nCol=nColRes + 1,\
                                       nRowCorner=nRowCorner,\
                                       nRowHead=nRowHead,\
                                       nRowContent=nRowContent,\
                                       strSheet1=strSheet1,
-                                      strSheet2=strSheet2)
+                                      strSheet2=strSheet2) 
     
     wsRes = Protect(wsRes,nRowCorner=nRowCorner,nRowHead=nRowHead,nCol=nColRes)
     
@@ -1895,10 +1895,10 @@ def ConstructSampleSheet(wsSam,*,ProjectInfo,filename,filenameExtra,lstSampleMet
                                 nRowContent=nRowContent,\
                                 dfVAR=dfVAR)
     wsSam,nColSam = AddColumnConcatID(wsSam,\
-                                nCol=nColSam+1,\
+                                nCol=nColSam + 1,\
                                 nRowCorner=nRowCorner,\
                                 nRowHead=nRowHead,\
-                                nRowContent=nRowContent,strSheet1="",strSheet2="")
+                                nRowContent=nRowContent,strSheet1="",strSheet2="") 
     
     #ws = AdjustWidth(ws)
     wsSam = Protect(wsSam,nRowCorner=nRowCorner,nRowHead=nRowHead,nCol=nColSam)
@@ -1942,9 +1942,24 @@ def CopyData(ws,*,folderInput,filename,strSheetName,row1,xCopyStyle):
                         cell = ws[strCell] 
                         cell.border = cell.border.copy(border=brdr.outline,bottom=brdr.bottom,top=brdr.top)
                         cell.font = cell.font.copy(bold=ft.bold)
-                    CellContent = (wsOld[strCell].value)
-                    if (not CellContent is None) and len(str(CellContent))>0:
-                        ws[strCell] = (CellContent)
+
+                    # NEW: skip if the template already wrote a formula here
+                    existingContent = ws[strCell].value
+                    if isinstance(existingContent, str) and existingContent.startswith('='):
+                        continue
+
+                    CellContent = wsOld[strCell].value
+                    if CellContent is not None and len(str(CellContent)) > 0:
+                        ws[strCell] = CellContent
+
+
+                    #CellContent = (wsOld[strCell].value)
+                    ##### if (not CellContent is None) and len(str(CellContent))>0:
+                        ##### ws[strCell] = (CellContent)
+                    #if CellContent is not None and len(str(CellContent)) > 0:
+                        # Only overwrite if cell is not locked (i.e. user-editable)
+                        #if not ws[strCell].protection.locked:
+                        #    ws[strCell] = CellContent
                 
     return ws
 

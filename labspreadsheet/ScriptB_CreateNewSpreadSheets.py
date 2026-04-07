@@ -226,12 +226,12 @@ for i, year in enumerate(years):
                     wsResult.freeze_panes='C9'
                     
                     # Copy existing data
-                    wsResult    = CopyData(wsResult,\
-                                       folderInput=folderInput,\
-                                       filename=filenameResult,\
-                                       strSheetName=strSheetName,\
-                                       row1=8,\
-                                       xCopyStyle=False)
+                    #wsResult    = CopyData(wsResult,\
+                    #                   folderInput=folderInput,\
+                    #                   filename=filenameResult,\
+                    #                   strSheetName=strSheetName,\
+                    #                   row1=8,\
+                    #                   xCopyStyle=False)
                     
                     # Construct sheet
                     wsResult = ConstructResultSheet(wsResult,\
@@ -242,6 +242,14 @@ for i, year in enumerate(years):
                                                 dfVAR=dfVAR,\
                                                 xLab=True)
                     
+                    # Copy existing data
+                    wsResult    = CopyData(wsResult,\
+                                       folderInput=folderInput,\
+                                       filename=filenameResult,\
+                                       strSheetName=strSheetName,\
+                                       row1=8,\
+                                       xCopyStyle=False)
+                    
                     # ===============================================================
                     # Create sheet with sample data from central samples sheet
                     # ===============================================================
@@ -250,7 +258,7 @@ for i, year in enumerate(years):
                     wsSampleX = ConstructLinks(wsSampleX,\
                                                strFolder=folder_samples,\
                                                strFilename=filenameSample,\
-                                               strSheet=strSheetName,nRow=1007,nCol=8)
+                                               strSheet=strSheetName,nRow=1007,nCol=14)     ##### incresed to 14 so comments are also copied
                     
                     # ===============================================================
                     # Create sheet with sample data from central samples extra sheet
@@ -261,7 +269,7 @@ for i, year in enumerate(years):
                         wsSampleY = ConstructLinks(wsSampleY,\
                                                    strFolder=ProjectInfo.Folder,\
                                                    strFilename=filenameSampleExtra,\
-                                                   strSheet=strSheetNameExtra,nRow=1007,nCol=8)
+                                                   strSheet=strSheetNameExtra,nRow=1007,nCol=14)    ##### incresed to 14 so comments are also copied
                         
                     # ===============================================================
                     # Store file
@@ -271,6 +279,10 @@ for i, year in enumerate(years):
                     filepathResultLocal =  os.path.join(Path(folderOutput),filenameResult)
                     wbResult.save(filepathResultLocal)
                 
+                # ============================================================================================
+                # CREATION OF "EXTRA" SAMPLE AND RESULT FILE ??????????
+                # ============================================================================================
+
                 if len( ProjectInfo.SampleID_Project)>0:
                     
                     # ========================================================================================
@@ -371,12 +383,12 @@ for i, year in enumerate(years):
                         wsResult.freeze_panes='C9'
                         
                         # Copy existing data
-                        wsResult    = CopyData(wsResult,\
-                                           folderInput=folderInput,\
-                                           filename=filenameResultExtra,\
-                                           strSheetName=strSheetNameExtra,\
-                                           row1=8,\
-                                           xCopyStyle=False)
+                        #wsResult    = CopyData(wsResult,\
+                        #                   folderInput=folderInput,\
+                        #                   filename=filenameResultExtra,\
+                        #                   strSheetName=strSheetNameExtra,\
+                        #                   row1=8,\
+                        #                   xCopyStyle=False)
                         
                         # Construct sheet
                         wsResult = ConstructResultSheet(wsResult,\
@@ -386,6 +398,14 @@ for i, year in enumerate(years):
                                                 filenameExtra=filenameSampleExtra,\
                                                 dfVAR=dfVAR,\
                                                 xLab=False)
+                                                
+                        # Copy existing data
+                        wsResult    = CopyData(wsResult,\
+                                           folderInput=folderInput,\
+                                           filename=filenameResultExtra,\
+                                           strSheetName=strSheetNameExtra,\
+                                           row1=8,\
+                                           xCopyStyle=False)
                         
                         # ===============================================================
                         # Create sheet with sample data from central samples sheet
@@ -395,7 +415,7 @@ for i, year in enumerate(years):
                         wsSampleX = ConstructLinks(wsSampleX,\
                                                strFolder=folder_samples,\
                                                strFilename=filenameSample,\
-                                               strSheet=strSheetName,nRow=1007,nCol=8)
+                                               strSheet=strSheetName,nRow=1007,nCol=14)         ##### incresed to 14 so comments are also copied
                         
                         # ===============================================================
                         # Create sheet with sample data from central samples extra sheet
@@ -406,7 +426,7 @@ for i, year in enumerate(years):
                         wsSampleY = ConstructLinks(wsSampleY,\
                                                    strFolder=ProjectInfo.Folder,\
                                                    strFilename=filenameSampleExtra,\
-                                                   strSheet=strSheetNameExtra,nRow=1007,nCol=8)
+                                                   strSheet=strSheetNameExtra,nRow=1007,nCol=14)    ##### incresed to 14 so comments are also copied
                         
                         # ===============================================================
                         # Store file
